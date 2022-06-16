@@ -5,7 +5,8 @@ export default {
     dark: '#2f2f2f',
     light: '#f1f1f1',
     green: '#31cdc9',
-    gray500: '#a8a8b3',
+    gray: '#191919',
+    red: '#ff0000',
   },
   fonts: {
     regular: 'Roboto_400Regular',

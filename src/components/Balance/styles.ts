@@ -5,10 +5,12 @@ export const Container = styled.View`
   background-color: ${({theme}) => theme.colors.dark};
   border-radius: 22px;
   border-color: ${({theme}) => theme.colors.gray};
-  border-width: 12px;
+  border-width: 3px;
   margin-top: ${RFValue(28)}px;
   z-index: 99;
   height: 20%;
+  width: 100%;
+  margin-bottom: 5%;
 `;
 
 export const BalanceContainer = styled.View`

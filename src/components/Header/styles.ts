@@ -11,12 +11,11 @@ export const Container = styled.View`
 `;
 
 export const TitleName = styled.Text`
-  font-size: ${RFValue(28)}px;
+  font-size: ${RFValue(22)}px;
   color: ${({theme}) => theme.colors.white};
 `;
 
 export const IconImage = styled.Image`
-  height: 42px;
-  width: 42px;
-  margin-right: 8px;
+  height: 40px;
+  width: 40px;
 `;

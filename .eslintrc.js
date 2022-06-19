@@ -28,5 +28,8 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    'react/display-name': 'off',
+    'react-native/no-inline-styles': 'off'
   },
 };

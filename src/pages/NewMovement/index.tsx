@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {ScrollView} from 'react-native';
 import {
   CategoryMovement,
   CategoryMovementButton,
@@ -9,10 +10,66 @@ import {
   Icon,
   SubCategoryMovement,
   SubCategoryMovementButton,
-  SubCategoryMovementScrollView,
+  TextCategory,
+  Currency,
+  ContentCurrency,
+  ButtonMovement,
+  TitleButtonMovement,
 } from './styles';
 const NewMovement: React.FunctionComponent = () => {
+  const expenses = [
+    {
+      id: 1,
+      name: 'Cartão',
+      icon: 'credit-card',
+    },
+    {
+      id: 2,
+      name: 'Aluguel',
+      icon: 'home',
+    },
+    {
+      id: 3,
+      name: 'Alimentos',
+      icon: 'shopping-bag',
+    },
+    {
+      id: 4,
+      name: 'Boletos',
+      icon: 'file-text',
+    },
+    {
+      id: 5,
+      name: 'Outros',
+      icon: 'settings',
+    },
+  ];
+  const revenue = [
+    {
+      id: 1,
+      name: 'Salário',
+      icon: 'dollar-sign',
+    },
+    {
+      id: 2,
+      name: 'Dividendos',
+      icon: 'x',
+    },
+    {
+      id: 3,
+      name: 'Auxilio',
+      icon: 'shopping-cart',
+    },
+    {
+      id: 4,
+      name: 'Outros',
+      icon: 'settings',
+    },
+  ];
   const [movement, setMovement] = useState('');
+  const [revenuePress, setRevenuePress] = useState('');
+  const [valueMovement, setValueMovement] = useState<number>(0);
+  console.log(valueMovement);
   const [dollarPress, setDollarPress] = useState(false);
   const [cartPress, setCartPress] = useState(false);
   return (
@@ -22,18 +79,18 @@ const NewMovement: React.FunctionComponent = () => {
         <CategoryMovement>
           <CategoryMovementButton
             onPress={() => {
-              setMovement('Ganhos');
+              setMovement('Receitas');
               setDollarPress(true);
               setCartPress(false);
             }}
-            style={movement === 'Ganhos' && {backgroundColor: '#31cdc9'}}>
+            style={movement === 'Receitas' && {backgroundColor: '#31cdc9'}}>
             <Icon
-              name="dollar-sign"
+              name="trending-up"
               size={65}
               color={dollarPress ? '#fff' : '#31cdc9'}
             />
           </CategoryMovementButton>
-          <DescriptionMovement>Ganhos</DescriptionMovement>
+          <DescriptionMovement>Receitas</DescriptionMovement>
         </CategoryMovement>
         <CategoryMovement>
           <CategoryMovementButton
@@ -44,7 +101,7 @@ const NewMovement: React.FunctionComponent = () => {
             }}
             style={movement === 'Despesas' && {backgroundColor: '#31cdc9'}}>
             <Icon
-              name="shopping-cart"
+              name="trending-down"
               size={65}
               color={cartPress ? '#fff' : '#31cdc9'}
             />
@@ -52,52 +109,86 @@ const NewMovement: React.FunctionComponent = () => {
           <DescriptionMovement>Despesas</DescriptionMovement>
         </CategoryMovement>
       </CategoryMovementView>
-
-      <SubCategoryMovementScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}>
+      {movement === 'Receitas' && (
         <SubCategoryMovement>
-          <SubCategoryMovementButton
-            onPress={() => {
-              setMovement('Ganhos');
-              setDollarPress(true);
-              setCartPress(false);
-            }}
-            style={movement === 'Ganhos' && {backgroundColor: '#31cdc9'}}>
-            <Icon
-              name="dollar-sign"
-              size={65}
-              color={dollarPress ? '#fff' : '#31cdc9'}
-            />
-          </SubCategoryMovementButton>
-          <SubCategoryMovementButton
-            onPress={() => {
-              setMovement('Ganhos');
-              setDollarPress(true);
-              setCartPress(false);
-            }}
-            style={movement === 'Ganhos' && {backgroundColor: '#31cdc9'}}>
-            <Icon
-              name="dollar-sign"
-              size={65}
-              color={dollarPress ? '#fff' : '#31cdc9'}
-            />
-          </SubCategoryMovementButton>
-          <SubCategoryMovementButton
-            onPress={() => {
-              setMovement('Ganhos');
-              setDollarPress(true);
-              setCartPress(false);
-            }}
-            style={movement === 'Ganhos' && {backgroundColor: '#31cdc9'}}>
-            <Icon
-              name="dollar-sign"
-              size={65}
-              color={dollarPress ? '#fff' : '#31cdc9'}
-            />
-          </SubCategoryMovementButton>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {revenue.map(item => (
+              <>
+                <SubCategoryMovementButton
+                  onPress={() => {
+                    setRevenuePress(item.name);
+                  }}
+                  style={
+                    revenuePress === `${item.name}` && {
+                      backgroundColor: '#31cdc9',
+                    }
+                  }>
+                  <Icon
+                    name={item.icon}
+                    size={44}
+                    color={revenuePress === `${item.name}` ? '#fff' : '#31cdc9'}
+                  />
+                  <TextCategory
+                    style={
+                      revenuePress === `${item.name}`
+                        ? {color: '#fff'}
+                        : {color: '#31cdc9'}
+                    }>
+                    {item.name}
+                  </TextCategory>
+                </SubCategoryMovementButton>
+              </>
+            ))}
+          </ScrollView>
         </SubCategoryMovement>
-      </SubCategoryMovementScrollView>
+      )}
+      {movement === 'Despesas' && (
+        <SubCategoryMovement>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {expenses.map(item => (
+              <>
+                <SubCategoryMovementButton
+                  onPress={() => {
+                    setRevenuePress(item.name);
+                  }}
+                  style={
+                    revenuePress === `${item.name}` && {
+                      backgroundColor: '#31cdc9',
+                    }
+                  }>
+                  <Icon
+                    name={item.icon}
+                    size={44}
+                    color={revenuePress === `${item.name}` ? '#fff' : '#31cdc9'}
+                  />
+                  <TextCategory
+                    style={
+                      revenuePress === `${item.name}`
+                        ? {color: '#fff'}
+                        : {color: '#31cdc9'}
+                    }>
+                    {item.name}
+                  </TextCategory>
+                </SubCategoryMovementButton>
+              </>
+            ))}
+          </ScrollView>
+        </SubCategoryMovement>
+      )}
+      <ContentCurrency>
+        <Currency
+          value={valueMovement}
+          onChangeValue={value => setValueMovement(value as number)}
+          prefix="R$"
+          placeholder="R$ 00.00"
+          delimiter=","
+          separator="."
+          precision={2}
+        />
+      </ContentCurrency>
+      <ButtonMovement>
+        <TitleButtonMovement>Salvar</TitleButtonMovement>
+      </ButtonMovement>
     </Container>
   );
 };

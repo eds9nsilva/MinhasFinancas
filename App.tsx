@@ -5,6 +5,7 @@ import {Routes} from './src/routes';
 import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {MovementProvider} from './src/context/moventContext';
 
 const App: React.FunctionComponent = () => {
   return (
@@ -12,7 +13,9 @@ const App: React.FunctionComponent = () => {
       <NavigationContainer>
         <StatusBar backgroundColor="transparent" translucent />
         <ThemeProvider theme={theme}>
-          <Routes />
+          <MovementProvider>
+            <Routes />
+          </MovementProvider>
         </ThemeProvider>
       </NavigationContainer>
     </GestureHandlerRootView>

@@ -1,5 +1,11 @@
+import React, {
+  createContext,
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {createContext, FunctionComponent, useEffect, useState} from 'react';
 
 export interface IMovement {
   id: string;
@@ -9,8 +15,8 @@ export interface IMovement {
 }
 
 export interface IMovementsContext {
+  movement: IMovement[];
   addMovement(movement: IMovement): void;
-  movements: IMovement[];
   removeMovement(id: string): void;
 }
 
@@ -33,5 +39,35 @@ export const MovementProvider: FunctionComponent<IProps> = ({children}) => {
         setData(JSON.parse(movementList));
       }
     }
-  });
+    loadMovements();
+  }, []);
+
+  const addMovement = async (movement: IMovement) => {
+    try {
+      const newMovementList = [...data, movement];
+      setData(newMovementList);
+      await AsyncStorage.setItem(movementData, JSON.stringify(newMovementList));
+    } catch (error) {
+      throw new Error(error as string);
+    }
+  };
+  const removeMovement = async (id: string) => {
+    const newMovementList = data.filter(task => task.id !== id);
+    setData(newMovementList);
+    await AsyncStorage.setItem(movementData, JSON.stringify(newMovementList));
+  };
+  return (
+    <MovementContext.Provider
+      value={{movement: data, addMovement, removeMovement}}>
+      {children}
+    </MovementContext.Provider>
+  );
 };
+
+export function useMovementList(): IMovementsContext {
+  const context = useContext(MovementContext);
+  if (!context) {
+    throw new Error('useMovementList deve ser usado em um MovementProvider');
+  }
+  return context;
+}

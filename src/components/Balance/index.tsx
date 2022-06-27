@@ -1,29 +1,37 @@
 import React from 'react';
 import {
   Container,
-  TitleBalance,
+  Title,
   BalanceContainer,
   BalanceContent,
-  BalanceText,
-  BalanceTextCurrent,
+  TextExpenses,
+  TextRevenue,
+  TextBalance,
 } from './styles';
 
 interface IParams {
-  BalanceCurrent: number;
+  Revenue: number;
   Expenses: number;
 }
 
-export default function Balance({BalanceCurrent, Expenses}: IParams) {
+export default function Balance({Revenue, Expenses}: IParams) {
+  const balance = Revenue - Expenses;
   return (
     <Container>
       <BalanceContainer>
         <BalanceContent>
-          <TitleBalance>Saldo</TitleBalance>
-          <BalanceTextCurrent>R$ {BalanceCurrent}</BalanceTextCurrent>
+          <Title>Saldo</Title>
+          <TextBalance>R$ {balance}</TextBalance>
+        </BalanceContent>
+      </BalanceContainer>
+      <BalanceContainer>
+        <BalanceContent>
+          <Title>Receita</Title>
+          <TextRevenue>R$ {Revenue}</TextRevenue>
         </BalanceContent>
         <BalanceContent>
-          <TitleBalance>Gastos</TitleBalance>
-          <BalanceText>R$ {Expenses}</BalanceText>
+          <Title>Gastos</Title>
+          <TextExpenses>R$ {Expenses}</TextExpenses>
         </BalanceContent>
       </BalanceContainer>
     </Container>

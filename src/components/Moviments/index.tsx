@@ -1,19 +1,18 @@
 import React, {useState} from 'react';
-import {IMoviments} from '../../model/moviments';
+import {IMovements} from '../../model/moviments';
 import {ButtonContainer, Content, TextDate, TextLabel, Value} from './styles';
-
 interface IParams {
-  data: IMoviments;
+  data: IMovements;
 }
 
 export default function ({data}: IParams) {
   const [showValue, setShowValue] = useState(false);
   return (
     <ButtonContainer onPress={() => setShowValue(!showValue)}>
-      <TextDate>{data.date}</TextDate>
+      <TextDate>{data.movement}</TextDate>
       <Content>
-        <TextLabel>{data.label}</TextLabel>
-        <Value>{data.value}</Value>
+        <TextLabel>{data.categoryMovement}</TextLabel>
+        <Value>R$ {data.valueMovement}</Value>
       </Content>
     </ButtonContainer>
   );

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView} from 'react-native';
+import {Alert, ScrollView} from 'react-native';
 import {
   CategoryMovement,
   CategoryMovementButton,
@@ -16,6 +16,8 @@ import {
   ButtonMovement,
   TitleButtonMovement,
 } from './styles';
+import {useMovementList} from '../../context/moventContext';
+
 const NewMovement: React.FunctionComponent = () => {
   const expenses = [
     {
@@ -69,9 +71,26 @@ const NewMovement: React.FunctionComponent = () => {
   const [movement, setMovement] = useState('');
   const [revenuePress, setRevenuePress] = useState('');
   const [valueMovement, setValueMovement] = useState<number>(0);
-  console.log(valueMovement);
   const [dollarPress, setDollarPress] = useState(false);
   const [cartPress, setCartPress] = useState(false);
+
+  const {addMovement} = useMovementList();
+  const handleSubmit = () => {
+    const data = {
+      id: String(new Date().getTime()),
+      movement,
+      categoryMovement: revenuePress,
+      valueMovement,
+    };
+    addMovement(data);
+    Alert.alert('Sucesso', 'Movimentação cadastrada com sucesso!');
+    setMovement('');
+    setRevenuePress('');
+    setValueMovement(0);
+    setDollarPress(false);
+    setCartPress(false);
+  };
+
   return (
     <Container>
       <Title>Adicionar movimentação</Title>
@@ -186,7 +205,7 @@ const NewMovement: React.FunctionComponent = () => {
           precision={2}
         />
       </ContentCurrency>
-      <ButtonMovement>
+      <ButtonMovement onPress={handleSubmit}>
         <TitleButtonMovement>Salvar</TitleButtonMovement>
       </ButtonMovement>
     </Container>

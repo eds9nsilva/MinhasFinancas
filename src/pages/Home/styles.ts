@@ -10,7 +10,8 @@ export const Content = styled.View`
 `;
 
 export const Button = styled.TouchableOpacity`
-  bottom: 15%;
+  position: absolute;
+  bottom: 5%;
   height: 60px;
   width: 60px;
   background-color: ${({theme}) => theme.colors.green};

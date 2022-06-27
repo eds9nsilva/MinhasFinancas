@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Button, Container, Content, Icon} from './styles';
 import Balance from '../../components/Balance';
 import Header from '../../components/Header';
 import Moviments from '../../components/Moviments';
 import {FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useMovementList} from '../../context/moventContext';
+import {IMovements} from '../../model/moviments';
 
 interface ScreenNavigationProp {
   navigate: (screen: string) => void;
@@ -12,58 +14,31 @@ interface ScreenNavigationProp {
 
 const Home: React.FunctionComponent = () => {
   const navigation = useNavigation<ScreenNavigationProp>();
-  const list = [
-    {
-      id: 1,
-      label: 'Boleto',
-      value: 99,
-      date: '18/11/1999',
-      type: 0, // Gastos
-    },
-    {
-      id: 2,
-      label: 'Pix',
-      value: 99,
-      date: '18/11/1999',
-      type: 1, // Receita
-    },
-    {
-      id: 3,
-      label: 'Salário',
-      value: 1000,
-      date: '18/11/1999',
-      type: 1, // Receita
-    },
-    {
-      id: 4,
-      label: 'Salário',
-      value: 1000,
-      date: '18/11/1999',
-      type: 1, // Receita
-    },
-    {
-      id: 5,
-      label: 'Salário',
-      value: 1000,
-      date: '18/11/1999',
-      type: 1, // Receita
-    },
-    {
-      id: 6,
-      label: 'Salário',
-      value: 1000,
-      date: '18/11/1999',
-      type: 1, // Receita
-    },
-  ];
+  const {movement} = useMovementList();
+  const Revenue = movement.filter(item => item.movement === 'Receitas');
+  const expenses = movement.filter(item => item.movement === 'Despesas');
+
+  function handleSumValueMovement(movement: IMovements[]) {
+    let sum = 0;
+    for (let i = 0; i <= movement.length; i++) {
+      if (movement[i]) {
+        sum += movement[i].valueMovement;
+      }
+    }
+    return sum;
+  }
+
   return (
     <Container>
       <Content>
         <Header name="Olá, seja bem-vindo(a)" />
-        <Balance BalanceCurrent={100.0} Expenses={200} />
+        <Balance
+          Revenue={handleSumValueMovement(Revenue)}
+          Expenses={handleSumValueMovement(expenses)}
+        />
         <FlatList
-          data={list}
-          keyExtractor={item => String(item.id)}
+          data={movement}
+          keyExtractor={item => item.id}
           renderItem={({item}) => <Moviments data={item} />}
         />
       </Content>

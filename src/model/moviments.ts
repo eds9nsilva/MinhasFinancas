@@ -1,7 +1,6 @@
-export interface IMoviments {
-  id: number;
-  label: string;
-  value: number;
-  date: string;
-  type: number;
+export interface IMovements {
+  id: string;
+  movement: string;
+  categoryMovement: string;
+  valueMovement: number;
 }

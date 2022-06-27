@@ -30,6 +30,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
     'react/display-name': 'off',
-    'react-native/no-inline-styles': 'off'
+    'react-native/no-inline-styles': 'off',
+    'no-shadow': 'off',
   },
 };

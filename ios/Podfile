@@ -21,6 +21,8 @@ target 'MinhasFinancas' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'MinhasFinancasTests' do
     inherit! :complete
     # Pods for testing

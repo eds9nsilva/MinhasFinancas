@@ -18,6 +18,7 @@ Minhas Finanças é um aplicativo desenvolvido em React Native. <br>
 - `React Native`
 - `TypeScript`
 - `Async-storage`
+- `Context APi`
 - `Styled-components`
 ---
 

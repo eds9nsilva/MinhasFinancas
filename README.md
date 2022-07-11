@@ -28,7 +28,7 @@ Minhas Finanças é um aplicativo desenvolvido em React Native. <br>
 $ git clone https://github.com/eds9nsilva/MinhasFinancas
 ```
 ```
-cd DevProfile
+cd MinhasFinancas
 ```
 ##### Instalando as depedências
 ```
